@@ -126,8 +126,8 @@
     \usepackage{xifthen} % Defines the \ifthenelse{Condition}{If True}{If false} command
     \newcommand{\LF}{\ifthenelse{\equal{\solutions}{true}}{\IfLanguageName{norsk}{L{\o}sningsgforslag}{Solutions}}{}}
     \newcommand{\exercise}{\ifthenelse{\equal{\solutions}{true}}{%
-        \IfLanguageName{norsk}{{\o}ving}{exercise}~\exerciseNumber}{%
-        \IfLanguageName{norsk}{{\O}ving}{Exercise}~\exerciseNumber}}
+        \IfLanguageName{norsk}{gruppe}{Group}~\exerciseNumber}{%
+        \IfLanguageName{norsk}{gruppe}{Group}~\exerciseNumber}}
 
     \newcommand{\ans}[1]{\ifthenelse{\equal{\solutions}{true}}{#1}{}}
 
@@ -185,7 +185,8 @@
       \IfLanguageName{norsk}{universitet}{and Technology}\\
       \IfLanguageName{norsk}{Institutt for informasjonssikkerhet og \\ kommunikasjonsteknologi}{Department of Information Security \\ and Communication Technology}
       \end{tabular}\hfill%
-      \textbf{ Web Security Lab: } Group 17\quad\mbox{}\\
+      \textbf{ Web Security Lab: } Group 17\quad\mbox{}\\%
+      \hfill Erlen L{\o}kken
       \vspace{3pt}
       \hrule height1pt
       \vspace{1pt}
