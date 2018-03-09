@@ -1,0 +1,194 @@
+%  _______ _______ __  __ _  _  __ ____  _____ 
+% |__   __|__   __|  \/  | || |/_ |___ \| ____|
+%    | |     | |  | \  / | || |_| | __) | |__  
+%    | |     | |  | |\/| |__   _| ||__ <|___ \ 
+%    | |     | |  | |  | |  | | | |___) |___) |
+%    |_|     |_|  |_|  |_|  |_| |_|____/|____/ 
+                                              
+                                              
+%
+% INFORMASJONSSIKKERHET / INFORMATION SECURITY
+% 
+% ========================================
+%   COURSE INFORMATION
+% ========================================
+
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\newcommand{\courseCode}{TTM4135}
+
+\newcommand{\courseNameNorskOne}{Informasjons-}
+\newcommand{\courseNameNorskTwo}{sikkerhet}
+
+\newcommand{\courseNameEnglishOne}{\!\!}
+\newcommand{\courseNameEnglishTwo}{Information Security}
+
+\newcommand{\semesterNorsk}{}
+\newcommand{\semesterEnglish}{}
+
+\newcommand{\Year}{\today}
+
+
+% ========================================
+%    OWN COMMANDS BELOW HERE 
+
+% ========================================
+% Figures
+% ========================================
+   \graphicspath{{./images/}} %Path to images
+   
+% ========================================
+% Lists
+% =======================================
+
+\usepackage{enumitem}
+\newcounter{questionCounter}
+
+\newenvironment{question}
+    {
+    \paragraph*{Q\refstepcounter{questionCounter}\thequestionCounter:}\itshape
+    }
+    { 
+    }
+
+
+\setlist[enumerate,1]{label=\textbf{Q\arabic*:}}%     in that case, at least label must be specified using \setlist
+
+% =======================================
+% Bibliography
+% ======================================
+
+    \usepackage[style=numeric, 
+                sorting=nyt, 
+                giveninits=true, 
+                eprint=false, 
+                url=false, 
+                doi=false,
+                isbn=false,
+                natbib=true]{biblatex}
+                
+    \addbibresource{references.bib}
+%    \usepackage[nottoc]{tocbibind}
+
+    \DeclareFieldFormat{labelnumberwidth}{#1\adddot}
+    \DeclareFieldFormat*{title}{\mkbibemph{#1}}
+    \DeclareFieldFormat*{journaltitle}{#1}
+    \DeclareFieldFormat[article,periodical]{volume}{\mkbibbold{#1}}
+    \DeclareFieldFormat[article,periodical]{number}{\bibstring{number}~#1}
+    \DeclareFieldFormat*{pages}{#1}
+    
+    \renewcommand*{\newunitpunct}{\addcomma\space}
+    
+    \renewcommand*{\bibnamedash}{\rule[.4ex]{3em}{.6pt}}
+
+    % from authortitle.bbx for the dash, see https://tex.stackexchange.com/q/335960/
+    \makeatletter
+    \newbool{bbx@inset}
+    \DeclareBibliographyDriver{set}{%
+        \booltrue{bbx@inset}%
+        \entryset{}{}%
+        \newunit\newblock
+        \usebibmacro{setpageref}%
+        \finentry}
+    
+    \renewbibmacro*{begrelated}{%
+      \booltrue{bbx@inset}}
+    
+    \renewbibmacro*{endrelated}{%
+      \usebibmacro*{bbx:savehash}}
+    
+    \InitializeBibliographyStyle{%
+      \global\undef\bbx@lasthash}
+    
+    \newbibmacro*{bbx:savehash}{%
+      \savefield{fullhash}{\bbx@lasthash}}
+    
+    \renewbibmacro*{author}{%
+      \ifboolexpr{
+        test \ifuseauthor
+        and
+        not test {\ifnameundef{author}}
+      }
+        {\usebibmacro{bbx:dashcheck}
+           {\printtext{\bibnamedash}}
+           {\printnames{author}%
+            \setunit{\addcomma\space}%
+            \usebibmacro{bbx:savehash}}%
+         \usebibmacro{authorstrg}}
+        {\global\undef\bbx@lasthash}}
+    
+    \renewbibmacro*{editor}{%
+      \usebibmacro{bbx:editor}{editorstrg}}
+    \renewbibmacro*{editor+others}{%
+      \usebibmacro{bbx:editor}{editor+othersstrg}}
+    \newbibmacro*{bbx:editor}[1]{%
+      \ifboolexpr{
+        test \ifuseeditor
+        and
+        not test {\ifnameundef{editor}}
+      }
+        {\usebibmacro{bbx:dashcheck}
+           {\printtext{\bibnamedash}}
+           {\printnames{editor}%
+            \setunit{\addcomma\space}%
+            \usebibmacro{bbx:savehash}}%
+         \usebibmacro{#1}%
+         \clearname{editor}}
+        {\global\undef\bbx@lasthash}}
+    
+    \renewbibmacro*{translator}{%
+      \usebibmacro{bbx:translator}{translatorstrg}}
+    \renewbibmacro*{translator+others}{%
+      \usebibmacro{bbx:translator}{translator+othersstrg}}
+    \newbibmacro*{bbx:translator}[1]{%
+      \ifboolexpr{
+        test \ifusetranslator
+        and
+        not test {\ifnameundef{translator}}
+      }
+        {\usebibmacro{bbx:dashcheck}
+           {\printtext{\bibnamedash}}
+           {\printnames{translator}%
+            \setunit{\addcomma\space}%
+            \usebibmacro{bbx:savehash}}%
+         \usebibmacro{#1}%
+         \clearname{translator}}
+        {\global\undef\bbx@lasthash}}
+    
+    \newbibmacro*{bbx:dashcheck}[2]{%
+      \ifboolexpr{
+        test {\iffieldequals{fullhash}{\bbx@lasthash}}
+        and
+        not test \iffirstonpage
+        and
+        (
+           not bool {bbx@inset}
+           or
+           test {\iffieldequalstr{entrysetcount}{1}}
+        )
+      }
+        {#1}
+        {#2}}
+    \makeatother
+    
+    \renewbibmacro{in:}{%
+      \ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
+    
+    \renewbibmacro*{journal+issuetitle}{%
+      \usebibmacro{journal}%
+      \setunit*{\addspace}%
+      \iffieldundef{series}
+        {}
+        {\newunit
+         \printfield{series}%
+         \setunit{\addspace}}%
+      \printfield{volume}%
+      \setunit{\addspace}%
+      \usebibmacro{issue+date}%
+      \setunit{\addcolon\space}%
+      \usebibmacro{issue}%
+      \newunit
+      \printfield{number}%
+      \setunit{\addcomma\space}%
+      \printfield{eid}
+      \newunit}

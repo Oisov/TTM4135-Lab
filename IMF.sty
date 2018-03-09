@@ -1,0 +1,222 @@
+%           _____                    _____                    _____          
+%          /\    \                  /\    \                  /\    \         
+%         /::\    \                /::\____\                /::\    \        
+%         \:::\    \              /::::|   |               /::::\    \       
+%          \:::\    \            /:::::|   |              /::::::\    \      
+%           \:::\    \          /::::::|   |             /:::/\:::\    \     
+%            \:::\    \        /:::/|::|   |            /:::/__\:::\    \    
+%            /::::\    \      /:::/ |::|   |           /::::\   \:::\    \   
+%   ____    /::::::\    \    /:::/  |::|___|______    /::::::\   \:::\    \  
+%  /\   \  /:::/\:::\    \  /:::/   |::::::::\    \  /:::/\:::\   \:::\    \ 
+% /::\   \/:::/  \:::\____\/:::/    |:::::::::\____\/:::/  \:::\   \:::\____\
+% \:::\  /:::/    \::/    /\::/    / ~~~~~/:::/    /\::/    \:::\   \::/    /
+%  \:::\/:::/    / \/____/  \/____/      /:::/    /  \/____/ \:::\   \/____/ 
+%   \::::::/    /                       /:::/    /            \:::\    \     
+%    \::::/____/                       /:::/    /              \:::\____\    
+%     \:::\    \                      /:::/    /                \::/    /    
+%      \:::\    \                    /:::/    /                  \/____/     
+%       \:::\    \                  /:::/    /                               
+%        \:::\____\                /:::/    /                                
+%         \::/    /                \::/    /                                 
+%          \/____/                  \/____/                                  
+
+
+% FAKULTET FOR INFORMASJONSTEKNOLOGI OG ELEKTROTEKNIKK
+
+% Institutt for matematiske fag
+
+%===================================
+% Language 
+% ===================================
+\usepackage{babel}
+    \usepackage{iflang} % Enables the switching between norwegian and english
+    
+% ===================================
+% Typography
+% ===================================
+    \usepackage[margin=1in,includeheadfoot]{geometry}% <- instead package
+    % fullpage
+    \usepackage{%
+    			lmodern,%
+    			fix-cm}% Better typography, e.g. kerning
+        
+    % ============================================================================
+    % Uncomment the following lines to use palantino instead of computer modern.
+    % ============================================================================
+    %\usepackage{mathpazo} % math & rm
+    %\linespread{1.05}        % Palatino needs more leading (space between lines) 
+    %\usepackage[scaled]{helvet} % ss
+    %\usepackage{courier} % tt
+    %\normalfont
+    \usepackage[T1]{fontenc}
+    % ============================================================================
+
+    \usepackage[activate={true,nocompatibility},
+    			final,
+    			tracking=true,
+    			kerning=true,
+    			spacing=true,
+    			factor=1100,
+    			stretch=10,
+    			shrink=10]{microtype} \LoadMicrotypeFile{bch}
+    \microtypecontext{spacing=nonfrench} 
+
+    \newcommand{\newpageanswer}{\ifthenelse{\boolean{\solutions}}{\newpage}{}}
+    
+% ===================================
+% Tables and figures
+% ===================================
+    \usepackage{booktabs} % Use \toprule , \midrule and \bottomrule for tables
+    \usepackage{subcaption}
+    \usepackage{float} % Allows the use of H in figures
+
+
+    
+    
+% ===================================
+% Mathematics
+% ===================================
+    \usepackage{mathtools}
+    \usepackage{amssymb} 
+    \usepackage{amsthm} 
+    
+% ===================================
+% Header and footer 
+% ===================================
+    \usepackage{lastpage} % number of last page 
+    \usepackage{fancyhdr}
+    
+    \pagestyle{fancy}
+    \fancyhf{}
+    \renewcommand\footrule{\begin{minipage}{1\textwidth}
+    \hrule width \hsize \kern 1mm \hrule width \hsize height 2pt  
+    \end{minipage}\par}%
+    
+    \renewcommand\headrule{\begin{minipage}{1\textwidth}
+    \hrule width \hsize height 2pt \kern 1mm \hrule width \hsize   
+    \end{minipage}\par}%
+    
+    \lfoot{\today}
+    \rfoot{\IfLanguageName{norsk}{Side}{Page}~\thepage~\IfLanguageName{norsk}{av}{of}~\pageref{LastPage}}
+    \lhead{\courseCode \
+           \IfLanguageName{norsk}{\courseNameNorskOne}{\courseNameEnglishOne}
+           \IfLanguageName{norsk}{\courseNameNorskTwo}{\courseNameEnglishTwo}
+           \IfLanguageName{norsk}{\semesterNorsk}{\semesterEnglish} -- Web Security Lab
+           }
+    \rhead{\exercise}
+    
+    \fancypagestyle{plain}{% Redefine ``plain'' style for chapter boundaries  
+      \fancyhf{} % clear all header and footer fields  
+      \renewcommand\footrule{\begin{minipage}{1\textwidth}
+      \hrule width \hsize \kern 1mm \hrule width \hsize height 2pt 
+      \end{minipage}\par}%
+      \renewcommand{\headrulewidth}{0pt}
+      %
+      \renewcommand{\headrule}{}% <- added
+      %
+      \fancyfoot[L]{\today} % except the center  
+      \fancyfoot[R]{\IfLanguageName{norsk}{Side}{Page} \thepage\ % Defines page 1 of 2
+                    \IfLanguageName{norsk}{av}{of} \pageref{LastPage}} % except the center  
+    }
+
+% ===================================
+% Problems 
+% ===================================
+
+    \usepackage{xifthen} % Defines the \ifthenelse{Condition}{If True}{If false} command
+    \newcommand{\LF}{\ifthenelse{\equal{\solutions}{true}}{\IfLanguageName{norsk}{L{\o}sningsgforslag}{Solutions}}{}}
+    \newcommand{\exercise}{\ifthenelse{\equal{\solutions}{true}}{%
+        \IfLanguageName{norsk}{{\o}ving}{exercise}~\exerciseNumber}{%
+        \IfLanguageName{norsk}{{\O}ving}{Exercise}~\exerciseNumber}}
+
+    \newcommand{\ans}[1]{\ifthenelse{\equal{\solutions}{true}}{#1}{}}
+
+
+% ===================================
+% Titlebox 
+% ===================================
+    \usepackage{tikz} % Needed to create the NTNU logo 
+
+    % Defines the NTNU logo
+    \definecolor{mblue}{RGB}{0,72,161}
+    \newcommand{\ntnulogo}{%
+      \leavevmode
+      \vtop{
+        \hrule height 0pt
+        \hbox{%
+          \begin{tikzpicture}
+          \fill[mblue, rounded corners=5mm] (0,2) rectangle (2,4);
+          \fill[white] (0.5,2.5) rectangle (1.5,3.5);
+          \fill[mblue] (1,3) circle (4mm);
+          \end{tikzpicture}%
+        }
+      }
+    }
+    
+    % Rename this for other subjects / year
+    \newcommand{\course}{%
+      \leavevmode
+      \vtop{\LARGE
+        \hrule height 0pt
+        \ialign{\hfil##\cr
+          \courseCode \
+          \IfLanguageName{norsk}{\courseNameNorskOne}{\courseNameEnglishOne}\cr
+          \IfLanguageName{norsk}{\courseNameNorskTwo}{\courseNameEnglishTwo}\cr
+          \IfLanguageName{norsk}{\semesterNorsk}{\semesterEnglish} \Year\cr
+        }%
+      }%
+    }
+    
+    % Creates the titlebox
+    % \titlebox{Øving 1}{Frist ...} or \titlebox{Løsningsforslag - Øving 1}{}
+    \newcommand{\titlebox}{
+    \thispagestyle{plain}
+    \begin{center}
+    \setlength{\fboxsep}{0pt}
+    \fbox{%
+      \begin{minipage}{\dimexpr\textwidth-2\fboxrule}
+      \vspace{1pt}
+      \hrule height 1pt
+      \vspace{6pt}
+      \mbox{}\quad\ntnulogo\hfill\course\quad\mbox{}\\[3pt]
+      \mbox{}\quad
+      \begin{tabular}{@{}l@{}}
+      \IfLanguageName{norsk}{Norges teknisk-vitenskapelige}{Norwegian University of Science}\\
+      \IfLanguageName{norsk}{universitet}{and Technology}\\
+      \IfLanguageName{norsk}{Institutt for informasjonssikkerhet og \\ kommunikasjonsteknologi}{Department of Information Security \\ and Communication Technology}
+      \end{tabular}\hfill%
+      \textbf{ Web Security Lab: } Group 17\quad\mbox{}\\
+      \vspace{3pt}
+      \hrule height1pt
+      \vspace{1pt}
+      \end{minipage}%
+    }
+    \end{center}
+    }
+
+% ===========================================
+    \usepackage{hyperref}                   % pdf-linker i dokumentet, denne
+    % pakken må inkluderes nest sist
+    \hypersetup{%
+      colorlinks = true,%
+      citecolor=green!50!black,%
+      filecolor=black,%
+      linkcolor=black,%
+      urlcolor=purple
+    }
+    \newcommand{\linkcolor}{blue}
+
+    \usepackage[nameinlink, noabbrev]{cleveref}            % Må inkluderes sist! Lager smarte kommandoer for referering
+        %Makes only the number in "equation (3.4)" colored.
+    \creflabelformat{myex}{#2\textcolor{\linkcolor}{#1}#3}
+    \creflabelformat{enumi}{#2\textcolor{\linkcolor}{#1}#3}
+    \creflabelformat{equation}{#2(\textcolor{\linkcolor}{#1})#3}
+    \creflabelformat{section}{#2\textcolor{\linkcolor}{#1}#3}
+    \creflabelformat{mathenv}{#2\textcolor{\linkcolor}{#1}#3}
+    \creflabelformat{lemma}{#2\textcolor{\linkcolor}{#1}#3}
+    \creflabelformat{corollary}{#2\textcolor{\linkcolor}{#1}#3}
+    \creflabelformat{sentence}{#2\textcolor{\linkcolor}{#1}#3}
+    \creflabelformat{definition}{#2\textcolor{\linkcolor}{#1}#3}
+
+
+    % ===========================================
